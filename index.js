@@ -15,11 +15,10 @@ if (process.env.PORT) {
 }
 const WS_PORT = process.env.WS_PORT || 8080;
 
-
 // Initialize the app
 const app = express()
 
-app.use('*', cors({ origin: `http://localhost:${PORT}` }));
+app.use('*', cors({ origin: `http://localhost:8080` }));
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // The GraphQL endpoint

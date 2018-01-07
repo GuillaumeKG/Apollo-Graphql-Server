@@ -8,7 +8,7 @@ import resolvers from './resolvers'
 const SchemaDefinition = `
   type Query { 
       author(id: Int!): Author
-      post(id: Int!): Post
+      post(id: Int!): ImgPost
       posts: [ImgPost]
     }
   type Mutation {

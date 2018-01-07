@@ -8,10 +8,26 @@ const authors = [
   { id: 3, firstName: 'Mikhail', lastName: 'Novikov' },
 ];
 const posts = [
-  { id: 1, authorId: 1, title: 'Introduction to GraphQL', votes: 2 },
-  { id: 2, authorId: 2, title: 'Welcome to Meteor', votes: 3, imgUrl: 'http://lorempixel.com/400/200/sports' },
-  { id: 3, authorId: 2, title: 'Advanced GraphQL', votes: 1 },
-  { id: 4, authorId: 3, title: 'Launchpad is Cool', votes: 7, imgUrl: 'http://lorempixel.com/400/200/nightlife' },
+  { id: 1, authorId: 1, title: 'Introduction to GraphQL', votes: 2, imgUrl: 'https://placeimg.com/960/720/nature/1', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: 2, authorId: 2, title: 'Welcome to Meteor', votes: 3, imgUrl: 'https://placeimg.com/320/240/nature/2', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: 3, authorId: 2, title: 'Advanced GraphQL', votes: 1, imgUrl: 'https://placeimg.com/320/240/nature/3', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: 4, authorId: 3, title: 'Launchpad is Cool', votes: 7, imgUrl: 'https://placeimg.com/320/240/nature/4', keywords:['Nature', 'Forest', 'Winter']  },
+  { id: 5, authorId: 1, title: 'Introduction to GraphQL', votes: 2, imgUrl: 'https://placeimg.com/320/240/nature/5', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: 6, authorId: 2, title: 'Welcome to Meteor', votes: 3, imgUrl: 'https://placeimg.com/320/240/nature/6', keywords:['Nature', 'Forest', 'Winter']  },
+  { id: 7, authorId: 2, title: 'Advanced GraphQL', votes: 1, imgUrl: 'https://placeimg.com/320/240/nature/7', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: 8, authorId: 3, title: 'Launchpad is Cool', votes: 7, imgUrl: 'https://placeimg.com/320/240/nature/8', keywords:['Nature', 'Forest', 'Winter']  },
+  { id: 9, authorId: 1, title: 'Introduction to GraphQL', votes: 2, imgUrl: 'https://placeimg.com/320/240/nature/9', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: 10, authorId: 2, title: 'Welcome to Meteor', votes: 3, imgUrl: 'https://placeimg.com/320/240/nature/10', keywords:['Nature', 'Forest', 'Winter']  },
+  { id: 11, authorId: 2, title: 'Advanced GraphQL', votes: 1, imgUrl: 'https://placeimg.com/320/240/nature/11', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: 12, authorId: 3, title: 'Launchpad is Cool', votes: 7, imgUrl: 'https://placeimg.com/320/240/nature/12', keywords:['Nature', 'Forest', 'Winter']  },
+  { id: 13, authorId: 1, title: 'Introduction to GraphQL', votes: 2, imgUrl: 'https://placeimg.com/320/240/nature/13', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: 14, authorId: 2, title: 'Welcome to Meteor', votes: 3, imgUrl: 'https://placeimg.com/320/240/nature/14', keywords:['Nature', 'Forest', 'Winter']  },
+  { id: 15, authorId: 2, title: 'Advanced GraphQL', votes: 1, imgUrl: 'https://placeimg.com/320/240/nature/15', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: 16, authorId: 3, title: 'Launchpad is Cool', votes: 7, imgUrl: 'https://placeimg.com/320/240/nature/16', keywords:['Nature', 'Forest', 'Winter']  },
+  { id: 17, authorId: 1, title: 'Introduction to GraphQL', votes: 2, imgUrl: 'https://placeimg.com/320/240/nature/17', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: 18, authorId: 2, title: 'Welcome to Meteor', votes: 3, imgUrl: 'https://placeimg.com/320/240/nature/18', keywords:['Nature', 'Forest', 'Winter']  },
+  { id: 19, authorId: 2, title: 'Advanced GraphQL', votes: 1, imgUrl: 'https://placeimg.com/320/240/nature/19', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: 20, authorId: 3, title: 'Launchpad is Cool', votes: 7, imgUrl: 'https://placeimg.com/320/240/nature/20', keywords:['Nature', 'Forest', 'Winter']  },
 ];
 
 
