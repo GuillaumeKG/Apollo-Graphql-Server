@@ -1,33 +1,34 @@
 import axios from 'axios'
 import { PubSub, withFilter } from 'graphql-subscriptions'
+import uuidv4   from 'uuid/v4'
 
 // Sample data
-const authors = [
+const users = [
   { id: 1, firstName: 'Tom', lastName: 'Coleman' },
   { id: 2, firstName: 'Sashko', lastName: 'Stubailo' },
   { id: 3, firstName: 'Mikhail', lastName: 'Novikov' },
 ];
 const posts = [
-  { id: 1, authorId: 1, title: 'Introduction to GraphQL', votes: 2, imgUrl: 'https://placeimg.com/960/720/nature/1', keywords:['Nature', 'Forest', 'Winter'] },
-  { id: 2, authorId: 2, title: 'Welcome to Meteor', votes: 3, imgUrl: 'https://placeimg.com/320/240/nature/2', keywords:['Nature', 'Forest', 'Winter'] },
-  { id: 3, authorId: 2, title: 'Advanced GraphQL', votes: 1, imgUrl: 'https://placeimg.com/320/240/nature/3', keywords:['Nature', 'Forest', 'Winter'] },
-  { id: 4, authorId: 3, title: 'Launchpad is Cool', votes: 7, imgUrl: 'https://placeimg.com/320/240/nature/4', keywords:['Nature', 'Forest', 'Winter']  },
-  { id: 5, authorId: 1, title: 'Introduction to GraphQL', votes: 2, imgUrl: 'https://placeimg.com/320/240/nature/5', keywords:['Nature', 'Forest', 'Winter'] },
-  { id: 6, authorId: 2, title: 'Welcome to Meteor', votes: 3, imgUrl: 'https://placeimg.com/320/240/nature/6', keywords:['Nature', 'Forest', 'Winter']  },
-  { id: 7, authorId: 2, title: 'Advanced GraphQL', votes: 1, imgUrl: 'https://placeimg.com/320/240/nature/7', keywords:['Nature', 'Forest', 'Winter'] },
-  { id: 8, authorId: 3, title: 'Launchpad is Cool', votes: 7, imgUrl: 'https://placeimg.com/320/240/nature/8', keywords:['Nature', 'Forest', 'Winter']  },
-  { id: 9, authorId: 1, title: 'Introduction to GraphQL', votes: 2, imgUrl: 'https://placeimg.com/320/240/nature/9', keywords:['Nature', 'Forest', 'Winter'] },
-  { id: 10, authorId: 2, title: 'Welcome to Meteor', votes: 3, imgUrl: 'https://placeimg.com/320/240/nature/10', keywords:['Nature', 'Forest', 'Winter']  },
-  { id: 11, authorId: 2, title: 'Advanced GraphQL', votes: 1, imgUrl: 'https://placeimg.com/320/240/nature/11', keywords:['Nature', 'Forest', 'Winter'] },
-  { id: 12, authorId: 3, title: 'Launchpad is Cool', votes: 7, imgUrl: 'https://placeimg.com/320/240/nature/12', keywords:['Nature', 'Forest', 'Winter']  },
-  { id: 13, authorId: 1, title: 'Introduction to GraphQL', votes: 2, imgUrl: 'https://placeimg.com/320/240/nature/13', keywords:['Nature', 'Forest', 'Winter'] },
-  { id: 14, authorId: 2, title: 'Welcome to Meteor', votes: 3, imgUrl: 'https://placeimg.com/320/240/nature/14', keywords:['Nature', 'Forest', 'Winter']  },
-  { id: 15, authorId: 2, title: 'Advanced GraphQL', votes: 1, imgUrl: 'https://placeimg.com/320/240/nature/15', keywords:['Nature', 'Forest', 'Winter'] },
-  { id: 16, authorId: 3, title: 'Launchpad is Cool', votes: 7, imgUrl: 'https://placeimg.com/320/240/nature/16', keywords:['Nature', 'Forest', 'Winter']  },
-  { id: 17, authorId: 1, title: 'Introduction to GraphQL', votes: 2, imgUrl: 'https://placeimg.com/320/240/nature/17', keywords:['Nature', 'Forest', 'Winter'] },
-  { id: 18, authorId: 2, title: 'Welcome to Meteor', votes: 3, imgUrl: 'https://placeimg.com/320/240/nature/18', keywords:['Nature', 'Forest', 'Winter']  },
-  { id: 19, authorId: 2, title: 'Advanced GraphQL', votes: 1, imgUrl: 'https://placeimg.com/320/240/nature/19', keywords:['Nature', 'Forest', 'Winter'] },
-  { id: 20, authorId: 3, title: 'Launchpad is Cool', votes: 7, imgUrl: 'https://placeimg.com/320/240/nature/20', keywords:['Nature', 'Forest', 'Winter']  },
+  { id: uuidv4(), authorId: 1, title: 'Introduction to GraphQL', votes: 2, imgUrl: 'https://placeimg.com/960/720/nature/1', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: uuidv4(), authorId: 2, title: 'Welcome to Meteor', votes: 3, imgUrl: 'https://placeimg.com/320/240/nature/2', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: uuidv4(), authorId: 2, title: 'Advanced GraphQL', votes: 1, imgUrl: 'https://placeimg.com/320/240/nature/3', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: uuidv4(), authorId: 3, title: 'Launchpad is Cool', votes: 7, imgUrl: 'https://placeimg.com/320/240/nature/4', keywords:['Nature', 'Forest', 'Winter']  },
+  { id: uuidv4(), authorId: 1, title: 'Introduction to GraphQL', votes: 2, imgUrl: 'https://placeimg.com/320/240/nature/5', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: uuidv4(), authorId: 2, title: 'Welcome to Meteor', votes: 3, imgUrl: 'https://placeimg.com/320/240/nature/6', keywords:['Nature', 'Forest', 'Winter']  },
+  { id: uuidv4(), authorId: 2, title: 'Advanced GraphQL', votes: 1, imgUrl: 'https://placeimg.com/320/240/nature/7', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: uuidv4(), authorId: 3, title: 'Launchpad is Cool', votes: 7, imgUrl: 'https://placeimg.com/320/240/nature/8', keywords:['Nature', 'Forest', 'Winter']  },
+  { id: uuidv4(), authorId: 1, title: 'Introduction to GraphQL', votes: 2, imgUrl: 'https://placeimg.com/320/240/nature/9', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: uuidv4(), authorId: 2, title: 'Welcome to Meteor', votes: 3, imgUrl: 'https://placeimg.com/320/240/nature/10', keywords:['Nature', 'Forest', 'Winter']  },
+  { id: uuidv4(), authorId: 2, title: 'Advanced GraphQL', votes: 1, imgUrl: 'https://placeimg.com/320/240/nature/11', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: uuidv4(), authorId: 3, title: 'Launchpad is Cool', votes: 7, imgUrl: 'https://placeimg.com/320/240/nature/12', keywords:['Nature', 'Forest', 'Winter']  },
+  { id: uuidv4(), authorId: 1, title: 'Introduction to GraphQL', votes: 2, imgUrl: 'https://placeimg.com/320/240/nature/13', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: uuidv4(), authorId: 2, title: 'Welcome to Meteor', votes: 3, imgUrl: 'https://placeimg.com/320/240/nature/14', keywords:['Nature', 'Forest', 'Winter']  },
+  { id: uuidv4(), authorId: 2, title: 'Advanced GraphQL', votes: 1, imgUrl: 'https://placeimg.com/320/240/nature/15', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: uuidv4(), authorId: 3, title: 'Launchpad is Cool', votes: 7, imgUrl: 'https://placeimg.com/320/240/nature/16', keywords:['Nature', 'Forest', 'Winter']  },
+  { id: uuidv4(), authorId: 1, title: 'Introduction to GraphQL', votes: 2, imgUrl: 'https://placeimg.com/320/240/nature/17', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: uuidv4(), authorId: 2, title: 'Welcome to Meteor', votes: 3, imgUrl: 'https://placeimg.com/320/240/nature/18', keywords:['Nature', 'Forest', 'Winter']  },
+  { id: uuidv4(), authorId: 2, title: 'Advanced GraphQL', votes: 1, imgUrl: 'https://placeimg.com/320/240/nature/19', keywords:['Nature', 'Forest', 'Winter'] },
+  { id: uuidv4(), authorId: 3, title: 'Launchpad is Cool', votes: 7, imgUrl: 'https://placeimg.com/320/240/nature/20', keywords:['Nature', 'Forest', 'Winter']  },
 ];
 
 
@@ -62,8 +63,8 @@ export default {
     posts: (obj, args, context, info) => {
       return posts
     },
-    author: (obj, { id }, context, info) => {
-      return authors.find(author => author.id === id)
+    user: (obj, { id }, context, info) => {
+      return users.find(user => user.id === id)
     },
     post: (obj, { id }, context, info) => {
       return posts.find(post => post.id === id)
@@ -81,9 +82,9 @@ export default {
       post.votes += 1;
       return post;
     },
-    submitComment: (obj, { id, message }, context, info) => {
+    submitComment: (obj, { id, title, message }, context, info) => {
       // Persist comment here
-      let comment = { id: 10, message }
+      let comment = { id: uuidv4(), title, message }
       pubsub.publish(COMMENT_ADDED_TOPIC, comment)
       console.log('submitComment')
       return comment
@@ -98,7 +99,6 @@ export default {
       // Allow to manipulate payload before processing
       resolve: (payload, args) => {
         //console.log('resolve payload' + payload + ' ' + args)
-        console.log('eahhhhhhhhhhhhhh')
         return payload.id
       },
       subscribe: withFilter(
@@ -114,23 +114,23 @@ export default {
   /******************************************* */
   /*               NESTED RESOLVERS            */
   /******************************************* */
-  Author: {
-    posts: (author, args, context, info) => posts.find(post => post.authorId === author.id)
+  User: {
+    posts: (user, args, context, info) => posts.find(post => post.authorId === user.id)
   },
 
   ImgPost: {
-    author: (post, args, context, info) => authors.find(author => author.id === post.authorId),
+    author: (post, args, context, info) => users.find(user => user.id === post.authorId),
     // Asynchroneous fecth example
     comments: (post, args, context, info) => {
       return getPosts()
         .then(response => {
-          let comments = response.data.map(user => {
-            return { id: user.id, message: user.body }
+          let comments = response.data.map(post => {
+            return { id: post.id, title: post.title, message: post.body }
           })
           return comments
         })
         .catch(error => {
-          throw new Error("Couldn't get Users.");
+          throw new Error("Couldn't get Comments.");
         })
     }
   },

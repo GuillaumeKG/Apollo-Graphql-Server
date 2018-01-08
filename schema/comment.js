@@ -1,11 +1,15 @@
-import Author from './author';
+import User from './user'
 
 const Comment = `
   type Comment {
-    id: Int!
-    message: String
-    author: Author
+    id: ID!
+    title: String!
+    message: String!
+    author: User
+    createdDate: String
+    like: Int
+    dislike: Int
   }
-`;
+`
 
-export default () => [Comment, Author];
+export default () => [Comment, User]

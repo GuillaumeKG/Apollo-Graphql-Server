@@ -1,29 +1,32 @@
 import  { makeExecutableSchema, addResolveFunctionsToSchema  } from 'graphql-tools'
 
-import Author from './author'
+import User from './user'
+import Message from './message'
 
 import resolvers from './resolvers'
 
 // Endpoints exposed
 const SchemaDefinition = `
   type Query { 
-      author(id: Int!): Author
-      post(id: Int!): ImgPost
+      user(id: ID!): User
+      post(id: ID!): ImgPost
       posts: [ImgPost]
+      mailbox(id: ID!):  MailBox
     }
   type Mutation {
-    upvotePost(id: Int!):Post
-    submitComment(id: Int!, message:String!):Comment
+    upvotePost(id: ID!):Post
+    submitComment(id: ID!, message:String!):Comment
   }
   type Subscription {
-    commentAdded(id: Int!): Comment
+    commentAdded(id: ID!): Comment
   }
 `
 // Create GraphQL schema
 var schema = makeExecutableSchema({
   typeDefs: [
     SchemaDefinition, 
-    Author
+    User,
+    Message
   ],
   resolvers:{},
   //logger: { log: (e) => console.log(e) }

@@ -1,38 +1,50 @@
-import Author from './author';
-import Comment from './comment';
+import User from './user'
+import Comment from './comment'
+import Collection from './collection'
 
 const Post = `
   interface Post {
-    id: Int!
+    id: ID!
     title: String!
-    author: Author!
+    description: String
+    keywords: [String]
+    initialCollection: Collection
+    author: User!
+    
     votes: Int
     comments: [Comment]
-    keywords: [String]
   }
 
   type ImgPost implements Post{
-    id: Int!
+    id: ID!
     title: String!
-    author: Author!
-    votes: Int
-    comments: [Comment]
+    description: String
     keywords: [String]
+    initialCollection: Collection
+    author: User!
+    
     imgUrl: String!
+    origin: String
     width: Int
     height: Int
     size: Int
+
+    votes: Int
+    comments: [Comment]
   }
 
   type BlogPost implements Post{
-    id: Int!
+    id: ID!
     title: String!
-    author: Author!
+    description: String
+    text: String
+    keywords: [String]
+    initialCollection: Collection
+    author: User!
+    
     votes: Int
     comments: [Comment]
-    keywords: [String]
-    text: String
   }
-`;
+`
 
-export default () => [Post, Author, Comment];
+export default () => [Post, User, Comment, Collection]
