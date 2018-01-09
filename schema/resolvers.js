@@ -46,8 +46,9 @@ function getPosts() {
 /******************************************* */
 /*        TOPIC NAMES FOR SUBSCRIPTIONS      */
 /******************************************* */
-const COMMENT_ADDED_TOPIC = 'commentAdded';
-const POST_ADDED_TOPIC = 'postAdded';
+const COMMENT_ADDED_TOPIC = 'commentAdded'
+const POST_ADDED_TOPIC = 'postAdded'
+const POST_VOTE_ADDED_TOPIC = 'postVoteAdded';
 
 const pubsub = new PubSub();
 
@@ -75,11 +76,14 @@ export default {
   /******************************************* */
   Mutation: {
     upvotePost: (obj, { id }, context, info) => {
+      console.log(posts)
+      console.log(id)
       const post = posts.find(post => post.id === id)
       if (!post) {
         throw new Error(`Couldn't find post with id ${id}`);
       }
-      post.votes += 1;
+      post.votes += 1
+      pubsub.publish(POST_VOTE_ADDED_TOPIC, post)
       return post;
     },
     submitComment: (obj, { id, title, message }, context, info) => {
@@ -98,14 +102,35 @@ export default {
     commentAdded: {
       // Allow to manipulate payload before processing
       resolve: (payload, args) => {
-        //console.log('resolve payload' + payload + ' ' + args)
+        console.log('commentAdded resolve payload')
+        console.log(payload)
+        console.log(variables)
         return payload.id
       },
       subscribe: withFilter(
-        () => pubsub.asyncIterator(SOMETHING_CHANGED_TOPIC), 
+        () => pubsub.asyncIterator(COMMENT_ADDED_TOPIC), 
         (payload, variables) => {
-          console.log('withFilter ')
+          console.log('commentAdded withFilter ')
+          console.log(payload)
+          console.log(variables)
           return payload.id === variables.id
+        }
+      )
+    },
+    postVoted: {
+      // Allow to manipulate payload before processing
+      resolve: (payload, args) => {
+        console.log('postVoted resolve')
+        console.log(payload)
+        return payload
+      },
+      subscribe: withFilter(
+        () => pubsub.asyncIterator(POST_VOTE_ADDED_TOPIC), 
+        (payload, variables) => {
+          console.log('postVoted withFilter ')
+          console.log(payload)
+          console.log(variables)
+          return true
         }
       )
     }
@@ -140,13 +165,15 @@ export default {
   /******************************************* */
   Post: {
     __resolveType(obj, context, info) {
+      return 'ImgPost';
+      /*
       if (obj.imgUrl) {
         console.log('Type ImgPost deduced')
         return 'ImgPost';
       } else {
         console.log('Type BlogPost deduced')
         return 'BlogPost';
-      }
+      }*/
     },
   },
 }

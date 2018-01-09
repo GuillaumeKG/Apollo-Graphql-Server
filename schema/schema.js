@@ -19,6 +19,7 @@ const SchemaDefinition = `
   }
   type Subscription {
     commentAdded(id: ID!): Comment
+    postVoted(id: ID!): Post
   }
 `
 // Create GraphQL schema
