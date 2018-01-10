@@ -18,7 +18,11 @@ const CLIENT_PORT = 8080;
 // Initialize the app
 const app = express()
 
-app.use('*', cors({ origin: `http://localhost:${CLIENT_PORT}` }));
+app.use('*', cors(
+  { 
+    origin: `http://localhost:${CLIENT_PORT}`,
+  })
+)
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // The GraphQL endpoint
