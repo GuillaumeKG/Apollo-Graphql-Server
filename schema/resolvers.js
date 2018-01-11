@@ -62,6 +62,7 @@ export default {
   /******************************************* */
   Query: {
     posts: (obj, args, context, info) => {
+      console.log('currentUserId: ' + context.currentUserId)
       return posts
     },
     user: (obj, { id }, context, info) => {
@@ -69,7 +70,13 @@ export default {
     },
     post: (obj, { id }, context, info) => {
       return posts.find(post => post.id === id)
-    }
+    },
+    postsBySearch (obj, {searchCriteria}, context, info){
+      return posts.filter(post => {
+        console.log('title: ' + post.title + ' | criteria: ' + searchCriteria + ' | match: ' + post.title.toUpperCase().includes(searchCriteria.toUpperCase()))
+        return post.title.toUpperCase().includes(searchCriteria.toUpperCase())
+      })
+   }
   },
   /******************************************* */
   /*                  MUTATIONS                */

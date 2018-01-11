@@ -7,6 +7,7 @@ import { createServer } from 'http';
 import { execute, subscribe } from 'graphql';
 
 import schema from './schema/schema'
+import { checkAuth, createToken, login } from './middleware/authent'
 
 
 let PORT = 3000;
@@ -18,17 +19,38 @@ const CLIENT_PORT = 8080;
 // Initialize the app
 const app = express()
 
+
+/************************************* */
+/*          COMMON MIDDLEWARES         */
+/************************************* */
 app.use('*', cors(
-  { 
+  {
     origin: `http://localhost:${CLIENT_PORT}`,
   })
 )
+
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-// The GraphQL endpoint
+/************************************* */
+/*                LOGIN                */
+/************************************* */
+app.use('/login',
+  (req, res, next) => {
+    console.log(req.body)
+    next()
+  },
+  login
+)
+
+
+/************************************* */
+/*          GRAPHQL ENDPOINT           */
+/************************************* */
 app.use('/graphql',
-  bodyParser.json(),
+  checkAuth,
   graphqlExpress(req => {
+    console.log('graphqlExpress: ' + req.currentUserId)
 
     return {
       schema: schema,
@@ -36,7 +58,7 @@ app.use('/graphql',
       // Can call a function as well (authentification for instance)
       // resolve: (?, args, {value}) => {}
       context: {
-        value: "contextValue"
+        currentUserId: req.currentUserId
       },
       // Custom error formatter (Optional)
       formatError: err => {
@@ -52,12 +74,19 @@ app.use('/graphql',
   })
 )
 
-// GraphiQL, a visual editor for queries
+/************************************* */
+/*          GRAPHIQL ENDPOINT          */
+/************************************* */
 app.use('/graphiql',
   graphiqlExpress({
     endpointURL: '/graphql',
     subscriptionsEndpoint: `ws://localhost:${PORT}/subscriptions`
   }))
+
+
+/************************************* */
+/*            CREATE SERVER            */
+/************************************* */
 
 // Wrap the Express server
 const ws = createServer(app);

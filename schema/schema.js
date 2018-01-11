@@ -11,6 +11,7 @@ const SchemaDefinition = `
       user(id: ID!): User
       post(id: ID!): ImgPost
       posts: [ImgPost]
+      postsBySearch(searchCriteria: String!): [ImgPost]
       mailbox(id: ID!):  MailBox
     }
   type Mutation {
